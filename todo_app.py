@@ -17,7 +17,7 @@ sys.setdefaultencoding('utf8')
 from flask import Flask, render_template, url_for, request, redirect
 app = Flask(__name__)
 
-#global keywd
+global keywd
 #keywd =''
 
 # load todo file
@@ -82,17 +82,27 @@ def todo_list(lvl):
     
 @app.route('/keywdSrch', methods = ['GET','POST'])
 def keywdSrch():
-    #global keywd
+    global keywd
     if request.method == 'POST':
         keywd = request.form['keywd']
-        return redirect(url_for('keywdSrchList',keywd = keywd))
+        return redirect(url_for('keywdSrchList'))
     else:
         return render_template('keywdSrch.html')
 
-@app.route('/keywdSrchList/<keywd>', methods = ['GET','POST'])    
-def keywdSrchList(keywd):
+@app.route('/keywdSrchList', methods = ['GET','POST'])    
+def keywdSrchList():
+    global keywd
+    
     tododf = load_todo('todo.txt')
     tododf['color'] = tododf['todolist'].apply(priorityColor)
+
+    keywdsplit = keywd.split(';;')
+    
+    keywd = keywdsplit[0]
+    if len(keywdsplit) > 1:
+        lvl = keywdsplit[1]
+    else:
+        lvl = '3'
 
     #keywd = 'ACTIVE'
 
@@ -107,7 +117,14 @@ def keywdSrchList(keywd):
     todofilt2 = todofilt.append(todo_parent1).append(todo_parent2).drop_duplicates()
     todofilt2 = todofilt2.sort_values(['idx1','idx2','idx3'])
 
-    todo_list = todofilt2[['todolist','color']].to_dict('records')
+    if lvl == '1':
+        todofiltf = todofilt2[todofilt2['idx2'] == 0]
+    elif lvl == '2':
+        todofiltf = todofilt2[todofilt2['idx3'] == 0]
+    else:
+        todofiltf = todofilt2
+
+    todo_list = todofiltf[['todolist','color']].to_dict('records')
     return render_template('list_todo.html',items = todo_list)
 
     
