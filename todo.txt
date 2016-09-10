@@ -1,13 +1,13 @@
 * buy milk [dd:09-01-2016][pr:1]
-  ** go to store [ACTIVE]
-  ** buy the milk
+  ** go to store [ACTIVE] [st:done]
+  ** buy the milk [st:done]
     *** get 2% milk
   ** return home
 * do homework
 * [ACTIVE] clean house
   ** call somebody [dd:09-15-2016][pr:2]
     *** get the right contact
-* iron pants
+* iron pants [st:done]
   ** do it today [dd: 08-29-2016]
      *** don’t forget to switch off after ironing [ACTIVE][pr:3]
 * Dance in the rain
