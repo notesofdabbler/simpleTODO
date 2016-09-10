@@ -107,7 +107,7 @@ def keywdSrchList():
 
     #keywd = 'ACTIVE'
 
-    if keywd != '':
+    if keywdterm != '':
         todofilt = tododf[tododf['todolist'].str.contains(keywdterm)]
     else:
         todofilt = tododf
@@ -122,16 +122,30 @@ def keywdSrchList():
     todofilt2 = todofilt2.sort_values(['idx1','idx2','idx3'])
 
     if keywdexcl != '':
-        todofilt2 = todofilt2[~todofilt2['todolist'].str.contains(keywdexcl)]
+        todoexcl = todofilt2[todofilt2['todolist'].str.contains(keywdexcl)]
+        
+        todoexclchild1 = todofilt2.merge(todoexcl[todoexcl['idx2'] == 0][['idx1']],how = 'inner')
+        todoexclchild2 = todofilt2.merge(todoexcl[(todoexcl['idx2'] > 0) & (todoexcl['idx3'] == 0)][['idx1','idx2']],how = 'inner')
+
+        todoexclf = todoexclchild1.append(todoexclchild2).drop_duplicates()
+        todoexclf['excl'] = 1
+
+        todokeepf = todofilt2.merge(todoexclf[['idx1','idx2','idx3','excl']],on = ['idx1','idx2','idx3'],how = 'left')
+        todokeepf = todokeepf[todokeepf['excl'] != 1]
+        
+    else:
+        
+        todokeepf = todofilt2
+        
 
     if lvl == '1':
-        todofiltf = todofilt2[todofilt2['idx2'] == 0]
+        todokeepf2 = todokeepf[todokeepf['idx2'] == 0]
     elif lvl == '2':
-        todofiltf = todofilt2[todofilt2['idx3'] == 0]
+        todokeepf2 = todokeepf[todokeepf['idx3'] == 0]
     else:
-        todofiltf = todofilt2
+        todokeepf2 = todokeepf
 
-    todo_list = todofiltf[['todolist','color']].to_dict('records')
+    todo_list = todokeepf2[['todolist','color']].to_dict('records')
     return render_template('list_todo.html',items = todo_list)
 
     
