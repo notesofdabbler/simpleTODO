@@ -1,10 +1,14 @@
 <html>
 
 <body>
-
-       {% for i in items %}
-    <pre><font color = "{{i.color}}">{{i.todolist}}</font></pre>
-       {% endfor %}
+<a href="newtask/0/">New Task</a>
+{% for i in items %}
+    {% if i.l2_key == 0 %}
+    <p><font color = "{{i.color}}">{{i.desc}}&nbsp[{{i.keywd}}]</font>&nbsp(<a href = "taskupdate/{{i.l1_key}}/0/">Edit</a>&nbsp<a href = "newtask/{{i.l1_key}}">New Subtask</a>)</p>
+    {% else %}
+    <p><font style="margin-left: 40px" color = "{{i.color}}">{{i.desc}}&nbsp[{{i.keywd}}] </font>&nbsp(<a href = "taskupdate/{{i.l1_key}}/{{i.l2_key}}/">Edit</a>&nbsp<a href="details/{{i.l1_key}}/{{i.l2_key}}/">View Details</a>)</p>
+    {% endif %}
+{% endfor %}
 
 </body>
 </html>

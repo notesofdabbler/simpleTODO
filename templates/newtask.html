@@ -1,0 +1,16 @@
+<html>
+
+<body>
+<h2>Add New Task/SubTask</h2>
+<form action = "{{url_for('newtask',l1_key = l1_key)}}" method = 'POST'>
+<p>Enter Description </p>
+<input type = 'text' size = '30' name = 'descnew'>
+<p>Enter keywords</p>
+<input type = 'text' size = '30' name = 'keywdnew'>
+<br>
+<input type='submit' value='Add Task'>
+</form>    
+
+</body>
+
+</html>

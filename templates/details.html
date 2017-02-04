@@ -1,0 +1,14 @@
+<html>
+
+<body>
+
+{% for i in items %}
+    {%if loop.index == 1 %}
+        <a href="newdetails">Add Details</a>
+    {% else %}
+        <p>{{i.desc}}</p>
+    {% endif %}
+{% endfor %}
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+<html>
+
+<body>
+<h2>Update Task</h2>
+<form action = "{{url_for('taskupdate',l1_key = item.l1_key, l2_key = item.l2_key)}}" method = 'POST'>
+<p>Update Task Desciption</p>
+<input type = 'text' size = '100' name = 'descupdt' placeholder = "{{item.desc}}">
+<p>Update Keywords</p>
+<input type = 'text' size = '30' name = 'keywdupdt' placeholder = {{item.keywd}}>
+<br>
+<input type='submit' value='Update'>
+</form>    
+
+</body>
+
+</html>
