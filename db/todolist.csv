@@ -8,7 +8,7 @@ l1_key,desc,keywd,l2_key,l3_key
 1,subtask1_1 change name,CLOSED; pr:2,1,0
 2,subtask_1_2_a_b_c,CLOSED,1,0
 2,subtask2_2,ACTIVE; pr:3,2,0
-4,Choose color,pr2,1,0
+4,Choose color and type,pr2,1,0
 5,Decide on program,,1,0
 7,Learn math,pr:1,0,0
 8,Buy a new book,,0,0
@@ -16,7 +16,7 @@ l1_key,desc,keywd,l2_key,l3_key
 8,Go to Amazon,,1,0
 7,Buy a book,,1,0
 1,1,,1,1
-4,Check color,,1,1
+4,Choose color and type,pr2,1,1
 5,Go through TV guide,,1,1
 5,Consult friends,,1,2
 5,Check cash,,1,3
