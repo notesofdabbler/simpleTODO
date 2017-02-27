@@ -77,8 +77,14 @@ def keywdSrchList():
     l1_key_list = todofilt.drop_duplicates(subset = 'l1_key')[['l1_key']]
     todofilt_l1 = tododf[tododf.l2_key == 0]
     todofilt_l1 = todofilt_l1.merge(l1_key_list, on = "l1_key", how = "inner")
+    
+    # Get tasks who top level got returned
+    lvl1only = todofilt.loc[(todofilt.l2_key == 0)][['l1_key']]
+    lvl2only = tododf.loc[(tododf.l2_key > 0) & (tododf.l3_key == 0)]
+    lvl2only = lvl2only.merge(lvl1only, on = "l1_key", how = "inner")
 
     todofilt = todofilt.append(todofilt_l1)
+    todofilt = todofilt.append(lvl2only)
     todofilt = todofilt.drop_duplicates()
     
     if lvlpick == 1:
@@ -96,8 +102,8 @@ def taskupdate(l1_key, l2_key):
     if request.method == 'POST':
         desc = request.form['descupdt']
         keywd = request.form['keywdupdt']
-        tododf.loc[(tododf.l1_key == l1_key) & (tododf.l2_key == l2_key),'desc'] = desc
-        tododf.loc[(tododf.l1_key == l1_key) & (tododf.l2_key == l2_key),'keywd'] = keywd
+        tododf.loc[(tododf.l1_key == l1_key) & (tododf.l2_key == l2_key) & (tododf.l3_key == 0),'desc'] = desc
+        tododf.loc[(tododf.l1_key == l1_key) & (tododf.l2_key == l2_key) & (tododf.l3_key == 0),'keywd'] = keywd
         tododf.to_csv("db/todolist.csv", index = False)
         return redirect(url_for('keywdSrch'))
     else:

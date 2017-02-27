@@ -36,4 +36,6 @@ l1_key,desc,keywd,l2_key,l3_key
 3,Buy maavu and grind it,ACTIVE,1,0
 2,just trying to enter new details,,3,1
 1,Go to Patel and buy chapati,pr:3,3,0
-1,Go in car,,3,1
+1,Go to Patel and buy chapati and pickle,pr:3,3,1
+1,test1,,3,2
+1,drink sugar cane juice also,,3,3
